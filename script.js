@@ -1,17 +1,67 @@
 //game is initialised 
-console.log("enter \"game()\" to begin");
 let computerScore = 0;
 let humanScore = 0;
-let gamecounter = 0;
+let gamecounter = 1;
+let rock = document.querySelector("#rock")
+let paper = document.querySelector('#paper')
+let scissors = document.querySelector('#scissors')
+let humanscore = document.querySelector('.humanScore');
+let compscore = document.querySelector('.compScore');
+let message = document.querySelector('.message');
+let result = document.querySelector('.result');
 
-//while loop for repeats of the game 
-while (gamecounter <= 5){
+rock.addEventListener("click", function(e){
+    let myChoice = 'rock';
+    scoreUpdater();
 
-// Computer asks for my input 
-let myChoice = prompt("what is your choice: rock, scissors or paper?");
+    if(gamecounter > 5){
+        if(humanScore>computerScore){
+            let win = `End of game, you won!!! your score was ${humanScore} and the computer's score was ${computerScore}`
+            console.log(win);
+            messageUpdater(win);
+        }else{
+            let lose = `End of game, you did not win. your score was ${humanScore} and the computer's score was ${computerScore}`
+            console.log(lose);
+            messageUpdater(lose);
+        }
+    }else{
+    game(myChoice);    
+    }})
 
-// It converts the variable to lowercase 
-processedUserChoice = myChoice.toLowerCase()
+    scissors.addEventListener("click", function(e){
+        let myChoice = 'scissors';
+
+        if(gamecounter > 5){
+            if(humanScore>computerScore){
+                let win = `end of game, you won!!! your score was ${humanScore} and the computer's score was ${computerScore}`
+                console.log(win);
+                messageUpdater(win);
+            }else{
+                let lose = `end of game, you did not win. your score was ${humanScore} and the computer's score was ${computerScore}`
+                console.log(lose);
+                messageUpdater(lose);
+            }
+        }else{
+        game(myChoice);    
+        }})
+
+    paper.addEventListener("click", function(e){
+        let myChoice = 'paper';
+        scoreUpdater();
+        if(gamecounter > 5){
+            if(humanScore>computerScore){
+                let win = `end of game, you won!!! your score was ${humanScore} and the computer's score was ${computerScore}`
+                console.log(win);
+                messageUpdater(win);
+            }else{
+                let lose = `end of game, you did not win. your score was ${humanScore} and the computer's score was ${computerScore}`
+                console.log(lose);
+                messageUpdater(lose);
+            }
+        }else{
+        game(myChoice);    
+        }})
+
 
 // It creates a random pick from rock, paper or scissors 
 function computerRandomizer(){
@@ -24,47 +74,93 @@ if (computerChoice <= 0.33) {
         return processedComputerChoice;
     } else {
         let processedComputerChoice = "scissors"
-        return processedComputerChoice;}}
-
+        return processedComputerChoice;
+    }}
+function game(a){
     // It checks that my variable is one of the rock, paper or scissors and throws an error if not 
-    if (processedUserChoice == "rock" || processedUserChoice == "paper" || processedUserChoice == "scissors") {
-        console.log(`your choice is: ${processedUserChoice}`);
+    if (a == "rock" || a == "paper" || a == "scissors") {
+        let correctVariable = `your choice is: ${a}`
+        console.log(correctVariable);
+        messageUpdater(correctVariable);
         let processedComputerChoice = computerRandomizer();
 
-        // It compares my result against that of the computer’s        
-        if (processedComputerChoice == processedUserChoice) {
-            console.log(`draw! you both chose ${processedUserChoice}`) 
-            ++gamecounter;
-            console.log(`end of round ${gamecounter}, user: ${humanScore} vs computer: ${computerScore}`);
-        } else if ((processedUserChoice == "rock" && processedComputerChoice == "paper") || (processedUserChoice == "paper" && processedComputerChoice == "scissors") || (processedUserChoice == "scissors" && processedComputerChoice == "rock")
+        // It compares my result against that of the computer’s if the choice is correct      
+        if (processedComputerChoice == a) {
+            let roundEnd = `end of round ${gamecounter}`;
+            let drawResult = `draw! you both chose ${a}`
+            messageUpdater(roundEnd);
+            resultUpdater(drawResult);
+            console.log(drawResult); 
+            console.log(roundEnd);
+        } else if ((a == "rock" && processedComputerChoice == "paper") || (a == "paper" && processedComputerChoice == "scissors") || (a == "scissors" && processedComputerChoice == "rock")
         ){
-            console.log(`you lost this round. you chose ${processedUserChoice} and the computer chose ${processedComputerChoice}`);
-             ++gamecounter;
-             ++computerScore;
-             console.log(`end of round ${gamecounter}, user: ${humanScore} vs computer: ${computerScore}`);
-
-        } else if ((processedUserChoice == "rock" && processedComputerChoice == "scissors") || (processedUserChoice == "paper" && processedComputerChoice == "rock") || (processedUserChoice == "scissors" && processedComputerChoice == "paper")) 
+            ++computerScore;
+            scoreUpdater();
+            let roundEnd = `end of round ${gamecounter}`
+            let lossResult = `you lost this round. you chose ${a} and the computer chose ${processedComputerChoice}`
+            messageUpdater(roundEnd);
+            resultUpdater(lossResult);
+            console.log(lossResult); 
+            console.log(roundEnd);
+        } else if ((a == "rock" && processedComputerChoice == "scissors") || (a == "paper" && processedComputerChoice == "rock") || (a == "scissors" && processedComputerChoice == "paper")) 
             {
-                console.log(`you won this round! you chose ${processedUserChoice} and the computer chose ${processedComputerChoice}`);
-                ++gamecounter;
                 ++humanScore;
-                console.log(`end of round ${gamecounter}, user: ${humanScore} vs computer: ${computerScore}`);
+                scoreUpdater();
+            let roundEnd = `end of round ${gamecounter}`
+            let winResult = `you won this round! you chose ${a} and the computer chose ${processedComputerChoice}`
+                messageUpdater(roundEnd);
+                resultUpdater(winResult);
+                console.log(winResult);
+                console.log(roundEnd);
             }
      else {
-        console.log(`your guess was ${processedUserChoice}, this is not rock, paper or scissors. please try again`)
-    }}}
+        let wrong = `your guess was ${a}, this is not rock, paper or scissors. please try again`
+        messageUpdater(wrong);
+        console.log(wrong)
+    }}
+++gamecounter;
+    }
+function scoreUpdater(){
+     //code to remove all of the existing divs so that the new score can be updated 
+     if (humanscore) {
+        while (humanscore.firstChild) {
+          humanscore.removeChild(humanscore.firstChild);
+        }}
+    
+    //code to update the new score 
+    let text1 = document.createElement('div');
+    text1.textContent= `User: ${humanScore}`;
+    humanscore.appendChild(text1);
 
-if(humanScore>computerScore){
-    console.log(`end of game, you won!!! your score was ${humanScore} and the computer's score was ${computerScore}`)
+     //code to remove all of the existing divs so that the new score can be updated 
+     if (compscore) {
+        while (compscore.firstChild) {
+          compscore.removeChild(compscore.firstChild);
+        }}
+    
+    //code to update the new score 
+    let text2 = document.createElement('div');
+    text2.textContent= `Computer: ${computerScore}`;
+    compscore.appendChild(text2);
+    }
+function messageUpdater(c){
+    if (message) {
+        while (message.firstChild) {
+          message.removeChild(message.firstChild);
+        }}
+    
+    let text3 = document.createElement('div');
+    text3.textContent= c;
+    message.appendChild(text3);
+    }
 
-} else {
-    console.log(`end of game, you did not win. your score was ${humanScore} and the computer's score was ${computerScore}`)
-}
-
-// 	if my result is the same as the computer it throws a draw message and calls a draw function
-// 	if my result loses (rock against paper, scissors against rock, paper against scissors), it calls a lose function and throws a lose message 
-// 	if my result wins (rock against scissors, scissors against paper, paper against rock) it calls a win function and throws a win message 
-// If winning, the score is added to a variable for me
-// If losing, the score is added to a variable for the computer 
-// This is repeated 5 times 
-// At the end, the scores are checked and if mine wins, a win message comes up, if the computer wins then the computer message comes up 
+    function resultUpdater(b){
+        if (result) {
+            while (result.firstChild) {
+              result.removeChild(result.firstChild);
+            }}
+        
+        let text4 = document.createElement('div');
+        text4.textContent= b;
+        result.appendChild(text4);
+        }

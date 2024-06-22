@@ -1,0 +1,53 @@
+*{
+    /* outline: 2px solid red; */
+}
+.bodycard{
+    display: flex;
+    height: 98vh;
+    width: 99vw;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttonholder{
+    background-color: black;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 31vh;
+    width: 80vw;
+
+}
+button{
+    height: 40px;
+    padding-left: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding-right: 20px;
+    color: black;
+    background-color: bisque;
+    border-radius: 20px;
+}
+.scoreholder {
+    height: 31vh;
+    width: 80vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    gap: 20px;
+}
+.messageholder {
+    height: 31vh;
+    width: 80vw;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-direction: column;
+}
